@@ -1,0 +1,47 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Movie Ticket Order page - Welcome and choose a Movie</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>Welcome to our Movie Ticket Shop App</h1>
+</header>
+
+<main>
+    <h2>Choose movie:</h2>
+    <form th:method="post" th:action="@{/}">
+        <ul th:each="movie : ${movies}">
+            <input type="radio" name="radio" th:value="${movie.getTitle()}" th:text="'Title: ' + ${movie.getTitle()} + ', Summary: ' + ${movie.getSummary()} + ', Rating: ' + ${movie.getRating()}">
+        </ul>
+        <h2>Choose number of tickets:</h2>
+        <input type="number" name="numTickets" min="1" max="10"><br/>
+        <br/>
+        <input type="submit" value="Order">
+    </form>
+
+    <h2>Search for movies:</h2>
+    <form th:method="get" th:action="@{/}">
+        <input type="text" name="searchText" placeholder="Search by Title">
+        <input type="number" name="minRating" placeholder="Minimum Rating" step="0.1">
+        <input type="submit" value="Search">
+    </form>
+
+    <ul th:each="movie : ${movies}">
+        <li>
+            <a th:href="@{/ticketOrder(title=${movie.title}, tickets=1)}">
+                <span th:text="'Title: ' + ${movie.title} + ', Summary: ' + ${movie.summary} + ', Rating: ' + ${movie.rating}"></span>
+            </a>
+        </li>
+    </ul>
+</main>
+</body>
+</html>
