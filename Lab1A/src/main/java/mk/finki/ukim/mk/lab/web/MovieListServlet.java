@@ -59,7 +59,6 @@ public class MovieListServlet extends HttpServlet {
         String title = req.getParameter("radio");
         int tickets = Integer.parseInt(req.getParameter("numTickets"));
         if(title!=null && !title.isEmpty() && tickets>0){
-            System.out.println(title + tickets);
             resp.sendRedirect("/ticketOrder?title=" + title + "&tickets=" + tickets);
         }else{
             String searchText=req.getParameter("search");
