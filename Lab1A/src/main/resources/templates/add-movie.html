@@ -1,0 +1,82 @@
+<head>
+
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form th:action="@{/movies/add}" th:method="POST">
+                    <input id="id" type="hidden" name="id"
+                           th:value="(${movie} != null ? ${movie.getId()} : '')">
+                    <div class="form-group">
+                        <label for="title">Movie name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="title"
+                               name="title"
+                               th:value="(${movie} != null ? ${movie.getTitle()} : '')"
+                               required
+                               placeholder="Enter movie title">
+                    </div>
+                    <div class="form-group">
+                        <label for="summary">Summary</label>
+                        <input type="text"
+                               class="form-control"
+                               id="summary"
+                               name="summary"
+                               th:value="(${movie} != null ? ${movie.getSummary()} : '')"
+                               placeholder="Summary">
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <input type="text"
+                               class="form-control"
+                               id="rating"
+                               name="rating"
+                               th:value="(${movie} != null ? ${movie.getRating()} : '')"
+                               placeholder="rating">
+                    </div>
+                    <div class="form-group">
+                        <label>Production</label>
+                        <label for="product">
+                            <select id="product" name="production" class="form-control">
+                                <option th:if="${movie} != null"
+                                        th:selected="${movie.getProduction() != null &&
+                                    movie.getProduction().getId() == prod.getId()}"
+                                        th:each="prod : ${productions}"
+                                        th:value="${prod.getId()}"
+                                        th:text="${prod.getName()}">
+                                </option>
+                                <option th:if="${movie} == null"
+                                        th:each="prod : ${productions}"
+                                        th:value="${prod.getId()}"
+                                        th:text="${prod.getName()}">
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/movies">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

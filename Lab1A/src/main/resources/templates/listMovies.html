@@ -3,45 +3,79 @@
 <head>
     <meta charset="utf-8">
     <title>Movie Ticket Order page - Welcome and choose a Movie</title>
-    <style type="text/css">
-        body {
-            width: 800px;
-            margin: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
 <header>
-    <h1>Welcome to our Movie Ticket Shop App</h1>
+    <h1>Web Programing</h1>
 </header>
 
-<main>
-    <h2>Choose movie:</h2>
-    <form th:method="post" th:action="@{/}">
-        <ul th:each="movie : ${movies}">
-            <input type="radio" name="radio" th:value="${movie.getTitle()}" th:text="'Title: ' + ${movie.getTitle()} + ', Summary: ' + ${movie.getSummary()} + ', Rating: ' + ${movie.getRating()}">
-        </ul>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12" th:if="${movies.size() > 0}">
+
+    <form th:method="POST" th:action="@{/}">
+        <div class="table-responsive ">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Movie Title</th>
+                <th scope="col">Movie Summary</th>
+                <th scope="col">Movie Rating</th>
+                <th scope="col">Movie Production</th>
+            </tr>
+            </thead>
+        <tbody >
+            <tr th:each="movie : ${movies}" class="movie">
+                <td>
+                    <label>
+                        <input type="radio" name="selectedMovie" th:value="${movie.getId()}"
+                               th:text="${movie.getTitle()}" >
+                    </label>
+                </td>
+                    <td th:text="${movie.getSummary()}"></td>
+                    <td th:text="${movie.getRating()}"></td>
+                    <td th:text="${movie.getProduction() !=null}? ${movie.getProduction().getName()}:'No Production'"></td>
+                <td>
+                <a th:href="@{'/movies/delete/{id}' (id=${movie.getId()})}"
+                   class="btn btn-sm btn-danger delete-movie">
+                    <i class="fa fa-trash">Delete</i>
+                </a>
+                <a th:href="@{'/movies/edit-form/{id}' (id=${movie.getId()})}"
+                   class="btn btn-sm btn-info edit-movie">
+                    <i class="fa fa-trash">Edit</i>
+                </a>
+                </td>
+        </tr>
+        </tbody>
+        </table>
+            </div>
         <h2>Choose number of tickets:</h2>
-        <input type="number" name="numTickets" min="1" max="10"><br/>
+        <label>
+            <input type="number" name="numTickets" min="1" max="10">
+        </label><br/>
         <br/>
         <input type="submit" value="Order">
     </form>
-
-    <h2>Search for movies:</h2>
-    <form th:method="get" th:action="@{/}">
-        <input type="text" name="searchText" placeholder="Search by Title">
-        <input type="number" name="minRating" placeholder="Minimum Rating" step="0.1">
-        <input type="submit" value="Search">
-    </form>
-
-    <ul th:each="movie : ${movies}">
-        <li>
-            <a th:href="@{/ticketOrder(title=${movie.title}, tickets=1)}">
-                <span th:text="'Title: ' + ${movie.title} + ', Summary: ' + ${movie.summary} + ', Rating: ' + ${movie.rating}"></span>
-            </a>
-        </li>
-    </ul>
-</main>
+    <a href="/movies/add-form" class="btn btn-sm btn-success">
+        <i class="fa fa-plus">Add new movie</i>
+    </a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
