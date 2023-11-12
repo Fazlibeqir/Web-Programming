@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/ticketOrder")
 public class TicketOrderController {
     @PostMapping
-    public String submitOrder(@RequestParam Long selectedMovie,
+    public String submitOrder(@RequestParam String selectedMovie,
                               @RequestParam int numTickets,
                                 Model model){
         model.addAttribute("selectedMovie",selectedMovie);

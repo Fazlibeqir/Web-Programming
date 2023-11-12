@@ -43,7 +43,7 @@
             <tr th:each="movie : ${movies}" class="movie">
                 <td>
                     <label>
-                        <input type="radio" name="selectedMovie" th:value="${movie.getId()}"
+                        <input type="radio" name="selectedMovie" th:value="${movie.getTitle()}"
                                th:text="${movie.getTitle()}" >
                     </label>
                 </td>
