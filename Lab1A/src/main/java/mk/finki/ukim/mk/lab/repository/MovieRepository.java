@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class MovieRepository {
@@ -27,8 +26,7 @@ public class MovieRepository {
     }
     public Optional<Movie> findById(Long id) {
         return movies.stream()
-                .filter(movie -> movie.getId().equals(id))
-                .findFirst();
+                .filter(movie -> movie.getId().equals(id)).findFirst();
     }
     public void deleteById(Long id) {
         movies.removeIf(movie -> movie.getId().equals(id));

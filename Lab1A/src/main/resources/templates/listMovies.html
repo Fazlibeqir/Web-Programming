@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-12" th:if="${movies.size() > 0}">
 
-    <form th:method="POST" th:action="@{/}">
+    <form th:method="POST" th:action="@{/ticketOrder}">
         <div class="table-responsive ">
         <table class="table table-striped">
             <thead>
@@ -51,14 +51,14 @@
                     <td th:text="${movie.getRating()}"></td>
                     <td th:text="${movie.getProduction() !=null}? ${movie.getProduction().getName()}:'No Production'"></td>
                 <td>
-                <a th:href="@{'/movies/delete/{id}' (id=${movie.getId()})}"
-                   class="btn btn-sm btn-danger delete-movie">
-                    <i class="fa fa-trash">Delete</i>
-                </a>
-                <a th:href="@{'/movies/edit-form/{id}' (id=${movie.getId()})}"
-                   class="btn btn-sm btn-info edit-movie">
-                    <i class="fa fa-trash">Edit</i>
-                </a>
+                    <a th:href="@{/movies/delete/{id} (id=${movie.getId()})}"
+                       class="btn btn-sm btn-danger delete-movie">
+                        <i class="fa fa-trash"></i>Delete
+                    </a>
+                    <a th:href="@{/movies/edit-form/{id} (id=${movie.getId()})}"
+                       class="btn btn-sm btn-info edit-movie">
+                        <i class="fa fa-edit"></i>Edit
+                    </a>
                 </td>
         </tr>
         </tbody>
@@ -71,9 +71,11 @@
         <br/>
         <input type="submit" value="Order">
     </form>
-    <a href="/movies/add-form" class="btn btn-sm btn-success">
+            <div>
+    <a th:href="@{/movies/add-form}" class="btn btn-sm btn-success">
         <i class="fa fa-plus">Add new movie</i>
     </a>
+            </div>
         </div>
     </div>
 </div>

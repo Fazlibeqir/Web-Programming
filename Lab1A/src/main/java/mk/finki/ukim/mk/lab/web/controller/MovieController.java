@@ -30,13 +30,13 @@ public class MovieController {
         return "listMovies";
     }
 
-    @PostMapping("/movies/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteMovie(@PathVariable Long id) {
         this.movieService.deleteById(id);
         return "redirect:/movies";
     }
 
-    @GetMapping("/movies/edit-form/{id}")
+    @GetMapping("/edit-form/{id}")
     public String editMoviePage(@PathVariable Long id, Model model) {
         if (this.movieService.findById(id).isPresent()) {
             Movie movie = this.movieService.findById(id).get();
