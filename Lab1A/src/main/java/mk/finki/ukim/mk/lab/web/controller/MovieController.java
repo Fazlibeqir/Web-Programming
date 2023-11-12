@@ -60,9 +60,9 @@ public class MovieController {
             @RequestParam String title,
             @RequestParam String summary,
             @RequestParam double rating,
-            @RequestParam Long production) {
+            @RequestParam Long productions) {
 
-            this.movieService.save(title, summary, rating, production);
+            this.movieService.save(title, summary, rating, productions);
         return "redirect:/movies";
     }
 }
