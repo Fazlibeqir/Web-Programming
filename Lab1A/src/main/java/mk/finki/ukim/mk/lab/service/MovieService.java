@@ -11,7 +11,6 @@ public interface MovieService {
     List<Movie> listAll();
     Optional<Movie> findById(Long id);
 
-    Optional<Movie> findByName(String name);
     Optional<Movie> save(String title, String summary, double rating, Long production);
 
     Optional<Movie> save(MovieDto movieDto);

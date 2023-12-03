@@ -33,10 +33,6 @@ public class MovieServiceImpl implements MovieService {
         return movieRepositoryInterface.findById(id);
     }
 
-    @Override
-    public Optional<Movie> findByName(String name) {
-        return movieRepositoryInterface.findByTitle(name);
-    }
 
     @Override
     public Optional<Movie> save(String title, String summary, double rating, Long production) {

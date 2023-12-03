@@ -9,8 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TicketOrderRepositoryInterface extends JpaRepository<TicketOrder,Long> {
-List<TicketOrder> findByUser_id(Long userId);
 List<TicketOrder> findByDateCreatedBetween(LocalDateTime from, LocalDateTime to);
-List<TicketOrder> findByMovie_id(Long movieId);
-List<TicketOrder> findByUser_IdAndMovie_Id(Long userId,Long movieId);
 }

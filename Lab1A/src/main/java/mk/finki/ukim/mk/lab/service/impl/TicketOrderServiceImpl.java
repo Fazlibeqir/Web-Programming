@@ -19,7 +19,6 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     public TicketOrderServiceImpl(TicketOrderRepositoryInterface ticketOrderRepositoryInterface) {
         this.ticketOrderRepositoryInterface = ticketOrderRepositoryInterface;
     }
-
     @Override
     public TicketOrder placeOrder(User user, Movie movie, int numberOfTickets, LocalDateTime dateCreated) {
         TicketOrder ticketOrder=new TicketOrder(user,movie,(long)numberOfTickets,dateCreated);
@@ -27,29 +26,8 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     }
 
     @Override
-    public List<TicketOrder> getAllOrders() {
-        return ticketOrderRepositoryInterface.findAll();
-    }
-
-    @Override
-    public List<TicketOrder> getOrdersByUser(Long userId) {
-        return ticketOrderRepositoryInterface.findByUser_id(userId);
-    }
-
-    @Override
-    public List<TicketOrder> getOrdersByMovie(Long movieId) {
-       return ticketOrderRepositoryInterface.findByMovie_id(movieId);
-    }
-
-    @Override
     public List<TicketOrder> getOrdersWithinTimeInterval(LocalDateTime from, LocalDateTime to) {
         return ticketOrderRepositoryInterface.findByDateCreatedBetween(from, to);
-    }
-
-
-        @Override
-    public List<TicketOrder> getOrdersByUserAndMovie(Long userId, Long movieId) {
-        return ticketOrderRepositoryInterface.findByUser_IdAndMovie_Id(userId,movieId);
     }
 
 }

@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ProductionRepositoryInterface extends JpaRepository<Production,Long> {
-List<Production> findAllByNameLike(String text);
-void deleteByName(String name);
+
 }

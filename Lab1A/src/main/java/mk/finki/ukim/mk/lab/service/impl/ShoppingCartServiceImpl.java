@@ -28,7 +28,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public List<TicketOrder> listAllMoviesInShoppingCart(Long cartId) {
+    public List<TicketOrder> listAllTicketsInShoppingCart(Long cartId) {
         ShoppingCart shoppingCart = shoppingCartRepositoryInterface.findById(cartId)
                 .orElseThrow(() -> new ShoppingCartNotFoundException(cartId));
         return shoppingCart.getTicketOrders();
