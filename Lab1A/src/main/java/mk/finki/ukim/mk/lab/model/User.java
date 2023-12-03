@@ -17,6 +17,7 @@ public class User {
 
     private String username;
 
+    @Convert
     private UserFullname fullname;
 
     private String password;
@@ -24,7 +25,7 @@ public class User {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ShoppingCart> carts;
 
     public User() {

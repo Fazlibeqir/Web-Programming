@@ -11,7 +11,7 @@ public class Movie {
     private Long id;
     String title;
     String summary;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Production production;
     double rating;
 

@@ -1,13 +1,19 @@
 package mk.finki.ukim.mk.lab.service.impl;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletRequestAttributeEvent;
+import jakarta.servlet.http.HttpServletRequest;
 import mk.finki.ukim.mk.lab.model.User;
 import mk.finki.ukim.mk.lab.model.UserFullname;
 import mk.finki.ukim.mk.lab.repository.jpa.UserRepositoryInterface;
 import mk.finki.ukim.mk.lab.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -20,6 +26,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepositoryInterface.findAll();
+    }
+
+    @Override
+    public String getCurrentUsername() {
+        HttpServletRequest request=((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        String username=(String) request.getAttribute("username");
+
+        Optional<User> userOptional = userRepositoryInterface.findByUsername(username);
+
+        return userOptional.map(User::getUsername).orElse(null);
+
     }
 
     @Override

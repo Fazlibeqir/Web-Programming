@@ -15,12 +15,12 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateCreated;
-    @ManyToMany
-    private List<TicketOrder> ticketOrders;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private List<TicketOrder> ticketOrders = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private ShoppingCartStatus status;
     public ShoppingCart() {
@@ -28,7 +28,6 @@ public class ShoppingCart {
     public ShoppingCart(User user) {
         this.user = user;
         this.dateCreated = LocalDateTime.now();
-        this.ticketOrders = new ArrayList<>();
         this.status=ShoppingCartStatus.CREATED;
     }
 }

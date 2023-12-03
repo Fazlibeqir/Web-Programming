@@ -1,10 +1,8 @@
 package mk.finki.ukim.mk.lab.web.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import mk.finki.ukim.mk.lab.model.ShoppingCart;
-import mk.finki.ukim.mk.lab.service.MovieService;
 import mk.finki.ukim.mk.lab.service.ShoppingCartService;
-import org.springframework.format.annotation.DateTimeFormat;
+import mk.finki.ukim.mk.lab.service.TicketOrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +13,12 @@ import java.time.LocalDateTime;
 @RequestMapping("/ticketOrder")
 public class TicketOrderController {
     private final ShoppingCartService shoppingCartService;
+    private final TicketOrderService ticketOrderService;
 
-    public TicketOrderController(ShoppingCartService shoppingCartService) {
+    public TicketOrderController(ShoppingCartService shoppingCartService,
+                                 TicketOrderService ticketOrderService) {
         this.shoppingCartService = shoppingCartService;
+        this.ticketOrderService = ticketOrderService;
     }
     @GetMapping("/showCart")
     public String showShoppingCart(Model model, @RequestParam(required = false) String selectedUser){
