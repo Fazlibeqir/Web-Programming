@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Order</title>
+</head>
+<body>
+<h1>Ticket Order</h1>
+
+<div th:if="${hasError}">
+    <p th:text="${error}" style="color: red;"></p>
+</div>
+
+<form action="/ticketOrder/addToCart" method="post">
+    <label for="movieId">Movie ID:</label>
+    <input type="text" id="movieId" name="movieId" required>
+
+    <label for="numberOfTickets">Number of Tickets:</label>
+    <input type="text" id="numberOfTickets" name="numberOfTickets" required>
+
+
+    <button type="submit">Add to Cart</button>
+</form>
+
+<a th:href="@{/ticketOrder/showCart}">Back to Shopping Cart</a>
+
+</body>
+</html>

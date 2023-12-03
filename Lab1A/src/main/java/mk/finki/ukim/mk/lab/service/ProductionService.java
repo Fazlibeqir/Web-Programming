@@ -7,5 +7,8 @@ import java.util.Optional;
 
 public interface ProductionService {
     List<Production> listAll();
-    Optional<Production> findByID(Long id);
+    Optional<Production> findById(Long id);
+    Optional<Production> save(String name,String country, String address);
+    void deleteById(Long id);
+
 }

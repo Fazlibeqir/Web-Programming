@@ -2,8 +2,10 @@ package mk.finki.ukim.mk.lab.web.controller;
 
 import mk.finki.ukim.mk.lab.model.Movie;
 import mk.finki.ukim.mk.lab.model.Production;
+import mk.finki.ukim.mk.lab.model.User;
 import mk.finki.ukim.mk.lab.service.MovieService;
 import mk.finki.ukim.mk.lab.service.ProductionService;
+import mk.finki.ukim.mk.lab.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +15,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/movies")
 public class MovieController {
-    private final ProductionService productionService;
     private final MovieService movieService;
-    public MovieController(ProductionService productionService, MovieService movieService){
-        this.productionService=productionService;
-        this.movieService=movieService;
+    private final ProductionService productionService;
+    private final UserService userService;
+
+    public MovieController(MovieService movieService, ProductionService productionService, UserService userService) {
+        this.movieService = movieService;
+        this.productionService = productionService;
+        this.userService = userService;
     }
+
     @GetMapping
     public String getMoviePage(@RequestParam(required = false) String error, Model model) {
         if (error != null && !error.isEmpty()) {
@@ -26,7 +32,9 @@ public class MovieController {
             model.addAttribute("error", error);
         }
         List<Movie> movies = this.movieService.listAll();
+        List<User> users=this.userService.getAllUsers();
         model.addAttribute("movies", movies);
+        model.addAttribute("users",users);
         return "listMovies";
     }
 
@@ -57,12 +65,17 @@ public class MovieController {
 
     @PostMapping("/add")
     public String saveMovie(
+            @RequestParam(required = false) Long id,
             @RequestParam String title,
             @RequestParam String summary,
             @RequestParam double rating,
             @RequestParam Long productions) {
+            if(id!=null){
+                this.movieService.edit(id,title, summary, rating, productions);
 
-            this.movieService.save(title, summary, rating, productions);
-        return "redirect:/movies";
+            }else {
+                this.movieService.save(title, summary, rating, productions);
+            }
+            return "redirect:/movies";
     }
 }

@@ -1,0 +1,16 @@
+package mk.finki.ukim.mk.lab.repository.jpa;
+
+import mk.finki.ukim.mk.lab.model.TicketOrder;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Repository
+public interface TicketOrderRepositoryInterface extends JpaRepository<TicketOrder,Long> {
+List<TicketOrder> findByUser_id(Long userId);
+List<TicketOrder> findByDateCreatedBetween(LocalDateTime from, LocalDateTime to);
+List<TicketOrder> findByMovie_id(Long movieId);
+List<TicketOrder> findByUser_IdAndMovie_Id(Long userId,Long movieId);
+}

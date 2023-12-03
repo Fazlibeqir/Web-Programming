@@ -1,0 +1,25 @@
+<div class="container">
+    <h2>User List</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Date of Birth</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.fullname.getName()}"></td>
+            <td th:text="${user.fullname.getSurname()}"></td>
+            <td th:text="${user.dateOfBirth}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/users/add}">Add user</a>
+</div>
