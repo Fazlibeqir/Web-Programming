@@ -17,7 +17,7 @@ public class User {
 
     private String username;
 
-    @Convert
+    @Convert(converter = UserFullnameConverter.class)
     private UserFullname fullname;
 
     private String password;
