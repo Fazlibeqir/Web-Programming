@@ -1,10 +1,9 @@
 package mk.finki.ukim.mk.lab.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -16,6 +15,9 @@ public class Production {
     private String name;
     private String country;
     private String address;
+
+    @OneToMany(mappedBy = "production", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Movie> movies;
 
     public Production() {
     }

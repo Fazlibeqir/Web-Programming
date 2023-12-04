@@ -8,9 +8,5 @@ import java.util.Optional;
 
 public interface UserService {
     List<User> getAllUsers();
-    String getCurrentUsername();
-    Optional<User> getUserById(Long id);
-    Optional<User> getUserByUsername(String username);
-    Optional<User> saveUser(String username,String name, String surname, String password, LocalDate dateOfBirth);
-    void deleteUserById(Long id);
+      Optional<User> saveUser(String username,String name, String surname, String password, LocalDate dateOfBirth);
 }

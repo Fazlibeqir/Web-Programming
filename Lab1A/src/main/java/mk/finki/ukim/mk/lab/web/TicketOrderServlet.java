@@ -34,7 +34,7 @@
 //        context.setVariable("num", req.getParameter("tickets"));
 //
 //        springTemplateEngine
-//                .process("orderConfirmation.html",
+//                .process("order-confirmation.html",
 //                        context,
 //                        resp.getWriter());
 //    }

@@ -26,9 +26,23 @@ public class ProductionServiceImpl  implements ProductionService {
     }
 
     @Override
-    public Optional<Production> save(String name, String country, String address) {
+    public Production save(String name, String country, String address) {
        Production production=new Production(name,country,address);
-        return Optional.of(productionRepository.save(production));
+        return productionRepository.save(production);
+    }
+
+    @Override
+    public Optional<Production> edit(Long id, String name, String country, String address) {
+        Optional<Production> optionalProduction=productionRepository.findById(id);
+        if(optionalProduction.isPresent()){
+            Production production=optionalProduction.get();
+            production.setName(name);
+            production.setCountry(country);
+            production.setAddress(address);
+
+            return Optional.of(productionRepository.save(production));
+        }
+        return Optional.empty();
     }
 
     @Override

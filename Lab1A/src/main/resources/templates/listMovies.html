@@ -27,8 +27,6 @@
 <div class="container mb-4">
     <div class="row">
         <div class="col-12" th:if="${movies.size() > 0}">
-
-    <form th:method="POST" th:action="@{/ticketOrder/addToCart}">
         <div class="table-responsive ">
         <table class="table table-striped">
             <thead>
@@ -37,18 +35,15 @@
                 <th scope="col">Movie Summary</th>
                 <th scope="col">Movie Rating</th>
                 <th scope="col">Movie Production</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
         <tbody >
 
             <tr th:each="movie : ${movies}" class="movie">
-                <td>
-                    <label>
-                        <input type="radio" name="selectedMovie" th:value="${movie.getTitle()}"
-                               th:text="${movie.getTitle()}" >
-                        <input type="hidden" name="movieId" th:value="${movie.getId()}">
-                    </label>
-                </td>
+                    <td th:text="${movie.getTitle()}"></td>
                     <td th:text="${movie.getSummary()}"></td>
                     <td th:text="${movie.getRating()}"></td>
                     <td th:text="${movie.getProduction() !=null}? ${movie.getProduction().getName()}:'No Production'"></td>
@@ -57,34 +52,31 @@
                        class="btn btn-sm btn-danger delete-movie">
                         <i class="fa fa-trash"></i>Delete
                     </a>
+                </td>
+                <td>
                     <a th:href="@{/movies/edit-form/{id}(id=${movie.id})}"
                        class="btn btn-sm btn-info edit-movie">
                         <i class="fa fa-edit"></i>Edit
                     </a>
                 </td>
+                <td>
+                    <form th:action="@{'/shopping-cart/add-movie/{id}' (id=${movie.getId()})}"
+                          th:method="POST">
+                        <div class="form-group">
+                            <label for="dateCreated">Date Created:</label>
+                            <input type="datetime-local" id="dateCreated" name="dateCreated" th:pattern="'yyyy-MM-ddTHH:mm'" required>
+                        </div>
+                        <label>
+                            <input type="number" name="numOfTickets" min="1" max="10">
+                        </label>
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-shopping-cart">Add to Cart</i></button>
+                    </form>
+                </td>
         </tr>
         </tbody>
         </table>
-            <div class="form-group">
-                <label for="selectedUser">Select a User:</label>
-                <select id="selectedUser" name="selectedUser">
-                    <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
-                </select>
-            </div>
 
-            <div class="form-group">
-                <label for="dateCreated">Date Created:</label>
-                <input type="datetime-local" id="dateCreated" name="dateCreated" th:pattern="'yyyy-MM-ddTHH:mm'" required>
             </div>
-            </div>
-        <h2>Choose number of tickets:</h2>
-        <label>
-            <input type="number" name="numberOfTickets" min="1" max="10">
-
-        </label><br/>
-        <br/>
-        <input type="submit" value="Add to cart">
-    </form>
             <div>
     <a th:href="@{/movies/add-form}" class="btn btn-sm btn-success">
         <i class="fa fa-plus">Add new movie</i>
@@ -95,7 +87,7 @@
 </div>
 <a th:href="@{/users/list}" class="btn btn-block btn-light">User List</a>
 <a th:href="@{/movies}" class="btn btn-block btn-light">list-movies</a>
-<a th:href="@{/shoppingCart/shopping-cart}" class="btn btn-block btn-light">shopping-cart</a>
-<a th:href="@{/ticketOrder/showCart}" class="btn btn-block btn-light">ticket-order</a>
+<a th:href="@{/shopping-cart}" class="btn btn-block btn-light">shopping-cart</a>
+<a th:href="@{/ticket-order}" class="btn btn-block btn-light">ticket-order</a>
 </body>
 </html>

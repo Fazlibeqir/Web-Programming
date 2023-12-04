@@ -1,7 +1,9 @@
 package mk.finki.ukim.mk.lab.web.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import mk.finki.ukim.mk.lab.model.ShoppingCart;
+import mk.finki.ukim.mk.lab.model.User;
 import mk.finki.ukim.mk.lab.service.ShoppingCartService;
 import mk.finki.ukim.mk.lab.service.UserService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,16 +13,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 @Controller
-@RequestMapping("/shoppingCart")
+@RequestMapping("/shopping-cart")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
-    private final UserService userService;
 
-    public ShoppingCartController(ShoppingCartService shoppingCartService, UserService userService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartService) {
         this.shoppingCartService = shoppingCartService;
-        this.userService = userService;
     }
-    @GetMapping("/shopping-cart")
+    @GetMapping
     public String getShoppingCartPage(@RequestParam(required = false) String error,
                                       HttpServletRequest req,
                                       Model model) {
@@ -28,8 +28,12 @@ public class ShoppingCartController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        String username = userService.getCurrentUsername();
-        ShoppingCart shoppingCart = this.shoppingCartService.getActiveShoppingCart(username);
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+             return "redirect:/login";
+        }
+        ShoppingCart shoppingCart = this.shoppingCartService.getActiveShoppingCart(user.getUsername());
         model.addAttribute("movies", this.shoppingCartService.listAllTicketsInShoppingCart(shoppingCart.getId()));
         return "shopping-cart";
     }
@@ -40,11 +44,11 @@ public class ShoppingCartController {
                                          @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dateCreated,
                                          HttpServletRequest req) {
         try {
-            String username =userService.getCurrentUsername();
-            this.shoppingCartService.addMovieToShoppingCart(username, id,numOfTickets,dateCreated);
-            return "redirect:/ShoppingCart/shopping-cart";
+            User username =(User) req.getSession().getAttribute("user");
+            this.shoppingCartService.addMovieToShoppingCart(username.getUsername(), id,numOfTickets,dateCreated);
+            return "redirect:/movies";
         } catch (RuntimeException exception) {
-            return "redirect:/ShoppingCart/shopping-cart?error=" + exception.getMessage();
+            return "redirect:/shopping-cart?error=" + exception.getMessage();
         }
     }
 }
