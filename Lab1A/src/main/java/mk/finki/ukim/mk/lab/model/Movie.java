@@ -13,7 +13,7 @@ public class Movie {
     private Long id;
     String title;
     String summary;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade  = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private Production production;
     double rating;
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
