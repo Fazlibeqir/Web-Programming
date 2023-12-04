@@ -27,7 +27,7 @@ public class TicketOrderController {
         this.ticketOrderService = ticketOrderService;
         this.movieService=movieService;
     }
-    @GetMapping
+    @GetMapping("ticket-form")
     public String showTicketOrderForm(Model model) {
         List<Movie> movies = movieService.listAll();
         model.addAttribute("movies", movies);
@@ -35,17 +35,23 @@ public class TicketOrderController {
     }
     @GetMapping("/orders-in-time-interval")
     public String getOrdersWithinTimeInterval(
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime from,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime to,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm") LocalDateTime from,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm") LocalDateTime to,
             Model model) {
         List<TicketOrder> orders = ticketOrderService.getOrdersWithinTimeInterval(from, to);
         model.addAttribute("orders", orders);
         return "order-confirmation";
     }
+    @GetMapping
+    public String orderConfirmation(Model model){
+        List<TicketOrder> orders = ticketOrderService.listAllOrders();
+        model.addAttribute("orders", orders);
+        return "ticket-order";
+    }
     @PostMapping
     public String placeTicketOrder(@RequestParam Long movieId,
                                    @RequestParam int numberOfTickets,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dateCreated,
+                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm") LocalDateTime dateCreated,
                                    Model model,
                                    HttpServletRequest req) {
         User username = (User) req.getSession().getAttribute("user");
@@ -53,7 +59,7 @@ public class TicketOrderController {
         if(optionalMovie.isPresent()) {
             Movie movie = optionalMovie.get();
             TicketOrder ticketOrder = ticketOrderService.placeOrder(username, movie, numberOfTickets, dateCreated);
-            model.addAttribute("ticketOrder", ticketOrder);
+            model.addAttribute("orders", ticketOrder);
             return "order-confirmation";
         }else {
             return "redirect:/movies";

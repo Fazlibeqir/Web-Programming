@@ -24,34 +24,48 @@
             <h3 class="jumbotron-heading">Ticket Order</h3>
         </div>
     </section>
-    <div class="container mb-4">
-        <div class="row">
-            <div class="col-12" th:if="${movies.size() > 0}">
                 <form th:action="@{/ticket-order}" method="post">
-                    <div class="form-group">
-                        <label for="movieId">Select Movie:</label>
-                        <select class="form-control" id="movieId" name="movieId">
-                            <option th:each="movie : ${movies}" th:value="${movie.id}" th:text="${movie.title}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="numberOfTickets">Number of Tickets:</label>
-                        <input type="number" class="form-control" id="numberOfTickets" name="numberOfTickets" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="dateCreated">Select Date and Time:</label>
-                        <input type="datetime-local" class="form-control" id="dateCreated" name="dateCreated" required>
-                    </div>
+                    <div class="container mb-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row" th:if="${orders.size() > 0}">
+                                    <div class="col-12">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <th scope="col">Client Name</th>
+                                            <th scope="col">Movie Title</th>
+                                            <th scope="col">Number of Tickets</th>
+                                            <th scope="col">Date Created</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="order : ${orders}">
+                                                <input id="movieId" type="hidden" name="movieId"
+                                                       th:value="${order.movie.getId()}">
+                                                <input id="numberOfTickets" type="hidden" name="numberOfTickets"
+                                                       th:value="${order.numberOfTickets}">
+                                                <input id="dateCreated" type="hidden" name="dateCreated"
+                                                       th:value="${order.dateCreated}">
+
+
+                                                <td th:text="${order.user.fullname.name}"></td>
+                                                <td th:text="${order.movie.title}"></td>
+                                                <td th:text="${order.numberOfTickets}"></td>
+                                                <td th:text="${order.dateCreated}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                     <button type="submit" class="btn btn-primary">Place Order</button>
+                        </div>
+                    </div>
                 </form>
             </div>
-        </div>
-    </div>
     <a th:href="@{/listMovies.html}">Back to movies</a>
     <a th:href="@{/users/list}" class="btn btn-block btn-light">User List</a>
     <a th:href="@{/movies}" class="btn btn-block btn-light">list-movies</a>
     <a th:href="@{/shopping-cart}" class="btn btn-block btn-light">shopping-cart</a>
     <a th:href="@{/ticket-order}" class="btn btn-block btn-light">ticket-order</a>
-</div>
 </body>
 </html>

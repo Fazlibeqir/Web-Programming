@@ -11,5 +11,5 @@ public interface TicketOrderService {
     TicketOrder placeOrder(User user, Movie movie, int numberOfTickets, LocalDateTime dateCreated);
     List<TicketOrder> getOrdersWithinTimeInterval(LocalDateTime from, LocalDateTime to);
 
-
+    List<TicketOrder> listAllOrders();
 }

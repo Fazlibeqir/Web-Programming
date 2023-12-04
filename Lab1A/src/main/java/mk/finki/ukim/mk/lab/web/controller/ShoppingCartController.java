@@ -41,7 +41,7 @@ public class ShoppingCartController {
     @PostMapping("/add-movie/{id}")
     public String addMovieToShoppingCart(@PathVariable Long id,
                                          @RequestParam Long numOfTickets,
-                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dateCreated,
+                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm") LocalDateTime dateCreated,
                                          HttpServletRequest req) {
         try {
             User username =(User) req.getSession().getAttribute("user");
