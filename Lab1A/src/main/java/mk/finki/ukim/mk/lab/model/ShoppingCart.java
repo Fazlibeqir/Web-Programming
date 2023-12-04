@@ -18,7 +18,7 @@ public class ShoppingCart {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss")
     private LocalDateTime dateCreated;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<TicketOrder> ticketOrders = new ArrayList<>();
