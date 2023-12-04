@@ -3,6 +3,8 @@ package mk.finki.ukim.mk.lab.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Movie {
@@ -11,9 +13,11 @@ public class Movie {
     private Long id;
     String title;
     String summary;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Production production;
     double rating;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TicketOrder> ticketOrders;
 
     public Movie() {
     }
