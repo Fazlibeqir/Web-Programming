@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -43,6 +44,18 @@ public class User {
         this.fullname=fullname;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, fullname, password, dateOfBirth);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
+        User other = (User) obj;
+        return id != null && id.equals(other.id);
     }
 
 

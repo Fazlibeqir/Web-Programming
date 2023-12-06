@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -34,5 +35,18 @@ public class TicketOrder {
         this.movie = movie;
         this.numberOfTickets = numberOfTickets;
         this.dateCreated=dateCreated;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, numberOfTickets, dateCreated);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof TicketOrder)) return false;
+        TicketOrder other = (TicketOrder) obj;
+        return id != null && id.equals(other.id);
     }
 }
