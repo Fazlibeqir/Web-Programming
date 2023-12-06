@@ -5,6 +5,7 @@ import mk.finki.ukim.mk.lab.model.Production;
 import mk.finki.ukim.mk.lab.model.User;
 import mk.finki.ukim.mk.lab.service.MovieService;
 import mk.finki.ukim.mk.lab.service.ProductionService;
+import mk.finki.ukim.mk.lab.service.ShoppingCartService;
 import mk.finki.ukim.mk.lab.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,16 @@ import java.util.List;
 public class MovieController {
     private final MovieService movieService;
     private final ProductionService productionService;
+    private final ShoppingCartService shoppingCartService;
     private final UserService userService;
 
-    public MovieController(MovieService movieService, ProductionService productionService, UserService userService) {
+    public MovieController(MovieService movieService,
+                           ProductionService productionService,
+                           ShoppingCartService shoppingCartService,
+                           UserService userService) {
         this.movieService = movieService;
         this.productionService = productionService;
+        this.shoppingCartService = shoppingCartService;
         this.userService = userService;
     }
 
@@ -40,6 +46,7 @@ public class MovieController {
 
     @GetMapping("/delete/{id}")
     public String deleteMovie(@PathVariable Long id) {
+        this.shoppingCartService.deleteByMovieId(id);
         this.movieService.deleteById(id);
         return "redirect:/movies";
     }

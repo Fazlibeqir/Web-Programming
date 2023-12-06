@@ -16,7 +16,7 @@ public class Movie {
     @ManyToOne(cascade  = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private Production production;
     double rating;
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<TicketOrder> ticketOrders;
 
     public Movie() {

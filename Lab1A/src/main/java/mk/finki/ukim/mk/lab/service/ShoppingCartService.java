@@ -9,6 +9,7 @@ import java.util.List;
 public interface ShoppingCartService {
 
     List<TicketOrder> listAllTicketsInShoppingCart(Long cartId);
+    void deleteByMovieId(Long movieId);
     ShoppingCart getActiveShoppingCart(String username);
     ShoppingCart addMovieToShoppingCart(String username, Long movieId, Long numberOfTickets, LocalDateTime dateCreated);
 
