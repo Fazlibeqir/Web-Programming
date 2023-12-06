@@ -29,7 +29,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ShoppingCart> carts;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<TicketOrder> ticketOrders = new HashSet<>();
     public void addTicketOrder(TicketOrder ticketOrder) {
         this.ticketOrders.add(ticketOrder);
