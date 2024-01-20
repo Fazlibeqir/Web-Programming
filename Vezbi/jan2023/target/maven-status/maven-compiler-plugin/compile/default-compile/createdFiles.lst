@@ -1,0 +1,15 @@
+mk\ukim\finki\wp\jan2023\config\SecurityConfig.class
+mk\ukim\finki\wp\jan2023\repository\CandidateRepository.class
+mk\ukim\finki\wp\jan2023\ExampleApplication.class
+mk\ukim\finki\wp\jan2023\model\Gender.class
+mk\ukim\finki\wp\jan2023\service\impl\CandidateServiceImpl.class
+mk\ukim\finki\wp\jan2023\config\DataInitializer.class
+mk\ukim\finki\wp\jan2023\service\impl\PartyServiceImpl.class
+mk\ukim\finki\wp\jan2023\model\Candidate.class
+mk\ukim\finki\wp\jan2023\service\CandidateService.class
+mk\ukim\finki\wp\jan2023\service\PartyService.class
+mk\ukim\finki\wp\jan2023\web\CandidatesController.class
+mk\ukim\finki\wp\jan2023\model\exceptions\InvalidPartyIdException.class
+mk\ukim\finki\wp\jan2023\model\exceptions\InvalidCandidateIdException.class
+mk\ukim\finki\wp\jan2023\model\Party.class
+mk\ukim\finki\wp\jan2023\repository\PartyRepository.class

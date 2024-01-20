@@ -41,7 +41,7 @@ public class SeleniumScenarioTest {
 
     static {
         SubmissionHelper.exam = "2022-june-g1";
-        SubmissionHelper.index = "TODO";
+        SubmissionHelper.index = "191045";
     }
 
     @Autowired
